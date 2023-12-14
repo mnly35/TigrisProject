@@ -1,16 +1,3 @@
-<?php
-
-session_start();
-
-if(isset($_SESSION["area_id"]))
-{
-  $mysqli = require __DIR__ . "/database.php";
-  $sql = "SELECT * FROM user WHERE id = {$_SESSION["area_id"]}";
-  $result = $mysqli->query($sql);
-  $user = $result->fetch_assoc();
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +6,20 @@ if(isset($_SESSION["area_id"]))
     <link rel="stylesheet" href="styles/index.css">
     <title>Form</title>
 </head>
-<body>
+<body><?php
+
+session_start();
+
+if(isset($_SESSION["id"]))
+{
+  $mysqli = require __DIR__ . "/database.php";
+  $sql = "SELECT * FROM user WHERE id = {$_SESSION["id"]}";
+  $result = $mysqli->query($sql);
+  $user = $result->fetch_assoc();
+}
+
+?>
+
     <form action="process_form.php" method="post">
        <br><br> <label for="name">Name:</label>
         <input type="text" name="name" required>
